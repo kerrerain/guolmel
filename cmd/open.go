@@ -1,7 +1,11 @@
 package cmd
 
 import (
+	"github.com/magleff/guolmel/mail/smtp"
+	"github.com/magleff/guolmel/models"
+	"github.com/shopspring/decimal"
 	"github.com/spf13/cobra"
+	"time"
 )
 
 var openCmd = &cobra.Command{
@@ -12,7 +16,14 @@ var openCmd = &cobra.Command{
 }
 
 func Open(cmd *cobra.Command, args []string) error {
-	return nil
+	budget := models.Budget{
+		StartDate:            time.Now(),
+		LastModificationDate: time.Now(),
+		InitialBalance:       decimal.NewFromFloat(0.00),
+	}
+
+	mailSender := new(smtp.SmtpSenderBasic)
+	return mailSender.SendBudgetState(budget)
 }
 
 func init() {

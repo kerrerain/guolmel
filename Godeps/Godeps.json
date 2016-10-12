@@ -8,6 +8,10 @@
 			"Rev": "76626ae9c91c4f2a10f34cad8ce83ea42c93bb75"
 		},
 		{
+			"ImportPath": "github.com/mxk/go-imap/imap",
+			"Rev": "531c36c3f12d6a03ea766b07a77314aa51ec17f3"
+		},
+		{
 			"ImportPath": "github.com/spf13/cobra",
 			"Rev": "1238ba19d24b0b9ceee2094e1cb31947d45c3e86"
 		},

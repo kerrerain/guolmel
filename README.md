@@ -1,2 +1,2 @@
 # guolmel
-Budget managed by a webmail
+Simple budget management based on a webmail.

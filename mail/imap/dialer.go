@@ -17,13 +17,13 @@ type ImapDialerBasic struct{}
 
 func (i ImapDialerBasic) DialTLS() (*imap.Client, error) {
 	if environmentVariablesNotSet() {
-		return nil, errors.New("Please set the GUOLMEL_MAIL_{SERVER, USER, PASSWORD}" +
+		return nil, errors.New("Please set the GUOLMEL_IMAP_{SERVER, USER, PASSWORD}" +
 			"environment variables.")
 	}
 
-	fmt.Println("Dialing mail server: ", os.Getenv(MAIL_SERVER))
+	fmt.Println("Dialing mail server: ", os.Getenv(SERVER))
 
-	imapClient, dialError := imap.DialTLS(os.Getenv(MAIL_SERVER),
+	imapClient, dialError := imap.DialTLS(os.Getenv(SERVER),
 		&tls.Config{})
 
 	if dialError != nil {
@@ -40,7 +40,7 @@ func (i ImapDialerBasic) DialTLS() (*imap.Client, error) {
 	}
 
 	if imapClient.State() == imap.Login {
-		imapClient.Login(os.Getenv(MAIL_USER), os.Getenv(MAIL_PASSWORD))
+		imapClient.Login(os.Getenv(USER), os.Getenv(PASSWORD))
 	}
 
 	imapClient.Select("INBOX", false)
@@ -49,7 +49,7 @@ func (i ImapDialerBasic) DialTLS() (*imap.Client, error) {
 }
 
 func environmentVariablesNotSet() bool {
-	return os.Getenv("GUOLMEL_MAIL_SERVER") == "" ||
-		os.Getenv("GUOLMEL_MAIL_USER") == "" ||
-		os.Getenv("GUOLMEL_MAIL_PASSWORD") == ""
+	return os.Getenv(SERVER) == "" ||
+		os.Getenv(USER) == "" ||
+		os.Getenv(PASSWORD) == ""
 }

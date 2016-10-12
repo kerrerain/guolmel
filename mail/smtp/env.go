@@ -1,0 +1,5 @@
+package smtp
+
+const SERVER = "GUOLMEL_SMTP_SERVER"
+const USER = "GUOLMEL_SMTP_USER"
+const PASSWORD = "GUOLMEL_SMTP_PASSWORD"

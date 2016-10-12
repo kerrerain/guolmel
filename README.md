@@ -7,13 +7,15 @@ go get godep
 $GOPATH/bin/godep save
 
 
-## Webmail configuration
+## Imap configuration
 Export these environment variables:
-* GUOLMEL_MAIL_SERVER
-* GUOLMEL_MAIL_USER
-* GUOLMEL_MAIL_PASSWORD
+* GUOLMEL_IMAP_SERVER
+* GUOLMEL_IMAP_USER
+* GUOLMEL_IMAP_PASSWORD
 
 For example, for a gmail account:
-* export GUOLMEL_MAIL_SERVER="imap.gmail.com"
-* export GUOLMEL_MAIL_USER="myuser@gmail.com"
-* export GUOLMEL_MAIL_PASSWORD="******"
+* export GUOLMEL_IMAP_SERVER="imap.gmail.com"
+* export GUOLMEL_IMAP_USER="myuser@gmail.com"
+* export GUOLMEL_IMAP_PASSWORD="******"
+
+## Smtp configuration

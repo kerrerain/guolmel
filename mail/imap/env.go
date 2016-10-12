@@ -1,0 +1,5 @@
+package imap
+
+const SERVER = "GUOLMEL_IMAP_SERVER"
+const USER = "GUOLMEL_IMAP_USER"
+const PASSWORD = "GUOLMEL_IMAP_PASSWORD"

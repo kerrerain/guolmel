@@ -36,7 +36,7 @@ func (s SmtpSenderBasic) SendTestMail() error {
 
 func (s SmtpSenderBasic) SendBudgetState(budget models.Budget) error {
 	msg := []byte("To: " + os.Getenv(USER) + "\r\n" +
-		"Subject: Budget state at " + budget.LastModificationDate.String() + "\r\n" +
+		"Subject: " + models.BUDGET_STATE_FLAG + budget.LastModificationDate.String() + "\r\n" +
 		"\r\n" +
 		budget.ToMessage())
 

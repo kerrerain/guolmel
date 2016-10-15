@@ -26,20 +26,6 @@ func Test(cmd *cobra.Command, args []string) error {
 		}
 	}
 
-	mailSender := new(smtp.SmtpSenderBasic)
-	errSmtp := mailSender.SendTestMail()
-
-	if errSmtp != nil {
-		return errSmtp
-	}
-
-	dialer := new(imap.ImapDialerBasic)
-	_, errImap := dialer.DialTLS()
-
-	if errImap != nil {
-		return errImap
-	}
-
 	fmt.Println("Everything is ok.")
 
 	return nil

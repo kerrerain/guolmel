@@ -1,6 +1,8 @@
 package cmd
 
 import (
+	"errors"
+	"github.com/magleff/guolmel/mail/imap"
 	"github.com/magleff/guolmel/mail/smtp"
 	"github.com/magleff/guolmel/models"
 	"github.com/shopspring/decimal"
@@ -16,14 +18,19 @@ var openCmd = &cobra.Command{
 }
 
 func Open(cmd *cobra.Command, args []string) error {
+	currentBudget, _ := imap.CurrentBudget()
+
+	if currentBudget != nil {
+		return errors.New("There is already an opened budget.")
+	}
+
 	budget := models.Budget{
 		StartDate:            time.Now(),
 		LastModificationDate: time.Now(),
 		InitialBalance:       decimal.NewFromFloat(0.00),
 	}
 
-	mailSender := new(smtp.SmtpSenderBasic)
-	return mailSender.SendBudgetState(budget)
+	return new(smtp.SmtpSenderBasic).SendBudgetState(budget)
 }
 
 func init() {

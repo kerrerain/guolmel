@@ -18,6 +18,16 @@ var openCmd = &cobra.Command{
 }
 
 func Open(cmd *cobra.Command, args []string) error {
+	if len(args) == 0 {
+		return errors.New("You should provide an initial balance.")
+	}
+
+	initialBalance, errParsingAmount := decimal.NewFromString(args[0])
+
+	if errParsingAmount != nil {
+		return errParsingAmount
+	}
+
 	currentBudget, _ := imap.CurrentBudget()
 
 	if currentBudget != nil {
@@ -27,8 +37,10 @@ func Open(cmd *cobra.Command, args []string) error {
 	budget := models.Budget{
 		StartDate:            time.Now(),
 		LastModificationDate: time.Now(),
-		InitialBalance:       decimal.NewFromFloat(0.00),
+		InitialBalance:       initialBalance,
 	}
+
+	budget.ComputeInformation()
 
 	return new(smtp.SmtpSenderBasic).SendBudgetState(budget)
 }

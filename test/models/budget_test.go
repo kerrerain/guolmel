@@ -34,7 +34,7 @@ func TestToMessage(t *testing.T) {
 
 func TestBudgetFromString(t *testing.T) {
 	// Arrange
-	str := "nil;nil;nil;0.25;0;0;0;0;0.25|0.15;nil;;false|-3.15;nil;;false"
+	str := "nil;nil;nil;0.25;0;0;0;0;0.25|0.15;nil;;false|-3.15;nil;;true"
 
 	// Act
 	budget := models.BudgetFromString(str)
@@ -46,6 +46,10 @@ func TestBudgetFromString(t *testing.T) {
 
 	if decimal.NewFromFloat(0.25).Cmp(budget.InitialBalance) != 0 {
 		t.Error("The initial balance should be parsed.")
+	}
+
+	if budget.Expenses[1].Checked != true {
+		t.Error("Should parse the checked attribute.")
 	}
 }
 

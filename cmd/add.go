@@ -11,6 +11,8 @@ import (
 	"time"
 )
 
+var addCheckedFlag bool
+
 var addCmd = &cobra.Command{
 	Use:   "add",
 	Short: "Adds an expense",
@@ -47,6 +49,10 @@ func ParseStringAmount(amount string) (decimal.Decimal, error) {
 func ParseExpenseFromArguments(args []string) (*models.Expense, error) {
 	var description string
 
+	if len(args) == 0 {
+		return nil, errors.New("Please provide an amount to add.")
+	}
+
 	amount, err := ParseStringAmount(args[0])
 
 	if err != nil {
@@ -79,13 +85,15 @@ func Add(cmd *cobra.Command, args []string) error {
 	}
 
 	expense.Date = time.Now()
-	expense.Checked = false
+	expense.Checked = addCheckedFlag
 
 	currentBudget.AddExpense(*expense)
+	currentBudget.LastModificationDate = time.Now()
 
 	return new(smtp.SmtpSenderBasic).SendBudgetState(*currentBudget)
 }
 
 func init() {
+	addCmd.Flags().BoolVarP(&addCheckedFlag, "checked", "c", false, "checked expense")
 	RootCmd.AddCommand(addCmd)
 }

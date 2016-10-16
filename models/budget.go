@@ -1,6 +1,7 @@
 package models
 
 import (
+	"fmt"
 	"github.com/shopspring/decimal"
 	"strconv"
 	"strings"
@@ -143,6 +144,7 @@ func parseExpensesFromString(chunks []string) ([]Expense, error) {
 }
 
 func parseSingleExpense(input string) Expense {
+	input = strings.TrimSpace(input)
 	chunks := strings.Split(input, SEPARATOR)
 
 	amount, _ := decimal.NewFromString(chunks[0])

@@ -12,6 +12,10 @@
 			"Rev": "531c36c3f12d6a03ea766b07a77314aa51ec17f3"
 		},
 		{
+			"ImportPath": "github.com/shopspring/decimal",
+			"Rev": "74d668a796fa3734c552fb907d9b83146d0bebee"
+		},
+		{
 			"ImportPath": "github.com/spf13/cobra",
 			"Rev": "1238ba19d24b0b9ceee2094e1cb31947d45c3e86"
 		},

@@ -1,7 +1,6 @@
 package models
 
 import (
-	"fmt"
 	"github.com/shopspring/decimal"
 	"strconv"
 	"strings"
@@ -10,6 +9,7 @@ import (
 
 const NIL_VALUE = "nil"
 const BUDGET_STATE_FLAG = "[BUDGET_STATE]"
+const BUDGET_ARCHIVE_FLAG = "[BUDGET_ARCHIVE]"
 const SEPARATOR = ";"
 const LINE_BREAK = "|"
 const DATE_LAYOUT = "2006-01-02T15:04:05.000Z"

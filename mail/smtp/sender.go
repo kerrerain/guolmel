@@ -4,6 +4,7 @@ import (
 	"github.com/magleff/guolmel/models"
 	"net/smtp"
 	"os"
+	"time"
 )
 
 type SmtpSender interface {
@@ -34,11 +35,25 @@ func (s SmtpSenderBasic) SendTestMail() error {
 	return s.SendMail(msg)
 }
 
-func (s SmtpSenderBasic) SendBudgetState(budget models.Budget) error {
+func (s SmtpSenderBasic) SendBudgetMessage(budget models.Budget, subject string) error {
 	msg := []byte("To: " + os.Getenv(USER) + "\r\n" +
-		"Subject: " + models.BUDGET_STATE_FLAG + budget.LastModificationDate.String() + "\r\n" +
+		"Subject: " + subject + "\r\n" +
 		"\r\n" +
 		budget.ToMessage())
 
 	return s.SendMail(msg)
+}
+
+func (s SmtpSenderBasic) SendBudgetState(budget models.Budget) error {
+	return s.SendBudgetMessage(budget, models.BUDGET_STATE_FLAG+
+		budget.LastModificationDate.String())
+}
+
+func (s SmtpSenderBasic) SendBudgetArchive(budget models.Budget) error {
+	return s.SendBudgetMessage(budget, models.BUDGET_ARCHIVE_FLAG+
+		"["+archiveTimestamp()+"]")
+}
+
+func archiveTimestamp() string {
+	return time.Now().Format("20060102150405")
 }
